@@ -1,0 +1,13 @@
+<button class="btn btn-primary"
+        (click)="showMessage()"
+> Show Message</button>
+
+<p *ngIf="flag">Este es el mensaje oculto</p>
+<br>
+<div *ngFor="let arr of clickArr"
+      [ngStyle]="{backgroundColor:getColor()}"   
+>
+  <p 
+     [ngClass]="{styleLetra: clickArr.length > 4}"
+  >Estoy mostrando algo</p>
+</div>

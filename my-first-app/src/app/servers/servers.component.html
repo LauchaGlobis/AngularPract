@@ -1,0 +1,28 @@
+<--!
+
+//Se actualiza a partir del evento "setServerName" que se activa al realizar un input
+<input type="text"
+       class="form-control"
+       (input)="setServerName($event)"
+>
+-->
+<br>
+
+<p>{{ serverName }}</p>
+//Enlace bidireccional, no necesita del método para actualizar el valor de la variable
+  es decir, al escribir se actualiza solo el ngModel actúa
+<input type="text"
+       class="form-control"
+       [(ngModel)]="serverName"
+>
+
+<button class="btn btn-primary"
+        [disabled]="!allowNewServer"
+        (click)="onCreateServer()"
+> Add Server</button>
+
+<p *ngIf="showItem">{{ createServer }}</p>
+
+<p [innerText]="allowNewServer"></p>
+
+<app-server *ngFor="let server of servers"></app-server>
