@@ -1,4 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShoppingService } from 'src/app/shopping-list/services/shopping-list.services';
 import { Recipe } from "../recipe.model";
@@ -6,10 +8,10 @@ import { Recipe } from "../recipe.model";
 @Injectable()
 
 export class RecipeService {
-    recipeSelected = new EventEmitter<Recipe>();
-    
+    recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
+
+   /*private recipes: Recipe[] = [
         new Recipe('A test recipe',
          'this is a sumply Test',
          'https://www.hola.com/imagenes/cocina/noticiaslibros/20210225185056/recetas-faciles-con-queso/0-923-792/portada-queso-adobe-m.jpg',
@@ -27,11 +29,19 @@ export class RecipeService {
              new Ingredient('Cosas ricas', 1)
          ]),
       ];
+      */
+
+      private recipes : Recipe[] = [];
 
       constructor( private shoppingService: ShoppingService){}
     getRecipes() {
         //Lo que hago con el slice es obtener una copia del arreglo de recetas
         return this.recipes.slice();
+    }
+
+    setRecipes( recipes : Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
     }
 
     getRecipeById(id:number) {
@@ -41,4 +51,22 @@ export class RecipeService {
     sendToShoppingList(ingredient:Ingredient[]) {
         this.shoppingService.addIngredients(ingredient);
     }
+
+    addRecipe( recipe: Recipe) {
+        this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, recipe: Recipe){
+        this.recipes[index] = recipe;
+        this.recipesChanged.next(this.recipes.slice());
+
+    }
+
+    deleteRecipe(index: number) {
+        this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+
 }
