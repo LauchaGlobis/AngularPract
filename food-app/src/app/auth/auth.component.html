@@ -1,8 +1,20 @@
+<ng-template appPlaceHolder></ng-template>
 <div class="row">
   <div class="col-xs-12">
-    <div class="alert alert-danger" *ngIf="error">
+   <!-- <div class="alert alert-danger" *ngIf="error">
       <p>{{ error }}</p>
-    </div>
+    </div> -->
+    <!--
+      Esta es la manera de mostrar un componente de la forma recomendada, es decir es un componente
+      dinámico, existe la forma programática, pero es preferible esta forma por demás
+
+
+      <app-alert [message]="error" *ngIf="error" (close)="onCloseModal()"></app-alert>
+
+
+
+    -->
+
     <div *ngIf="isLoading" style="text-align: center;">
       <app-loading-spinner></app-loading-spinner>
     </div>
