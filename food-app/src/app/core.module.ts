@@ -2,12 +2,12 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
 import { RecipeService } from "./recipes/services/recipe.services";
-import { ShoppingService } from "./shopping-list/services/shopping-list.services";
+
 
 @NgModule({
   providers:[
 
-    ShoppingService,
+
     RecipeService,
     {
       provide: HTTP_INTERCEPTORS,
