@@ -18,10 +18,18 @@ export class RecipeEffects {
     switchMap(()=>{
       return this.http.get<Recipe[]>('https://food-app-base-default-rtdb.firebaseio.com/recipes.json')
     }),
-    map(recipes => recipes
+    /*map(recipes => recipes
       ? recipes.map( recipe =>({ingredients: [], ...recipe}))
       :[]
-      ),
+      ),*/
+      map(recipes => {
+        return recipes.map(recipe => {
+          return {
+            ...recipe,
+            ingredients: recipe.ingredients ? recipe.ingredients : []
+          };
+        });
+      }),
     map(recipes =>{
       return new RecipesActions.SetRecipes(recipes);
     }),
